@@ -4,6 +4,7 @@ const Hapi = require('@hapi/hapi');
 const album = require('./api/albums');
 const AlbumService = require('./services/postgres/AlbumsService');
 const ClientError = require('./exceptions/ClientError');
+const AlbumsValidator = require('./validator/albums');
 
 const init = async () => {
     const albumsService = new AlbumService();
@@ -47,6 +48,7 @@ const init = async () => {
         plugin: album,
         options: {
             service: albumsService,
+            validator: AlbumsValidator,
         },
     });
 
