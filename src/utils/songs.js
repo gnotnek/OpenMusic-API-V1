@@ -5,7 +5,7 @@ const mapSongs = ({
     performer,
     genre,
     duration,
-    albumId,
+    album_id,
 }) => ({
     id,
     title,
@@ -13,7 +13,7 @@ const mapSongs = ({
     performer,
     genre,
     duration,
-    albumId,
+    albumId: album_id,
 });
 
 module.exports = { mapSongs };

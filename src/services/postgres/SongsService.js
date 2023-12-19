@@ -1,6 +1,8 @@
 const { nanoid } = require('nanoid');
 const {Pool} = require('pg');
 const { mapSongs } = require('../../utils/songs');
+
+//exception
 const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
 
@@ -27,13 +29,13 @@ class SongsService {
     }
 
     async getSongs() {
-        const result = await this._pool.query('SELECT * FROM songs');
-        return result.rows.map(mapSongs);
+        const result = await this._pool.query('SELECT id, title, performer FROM songs');
+        return result.rows;
     }
 
     async getSongById(id) {
         const query = {
-            text: 'SELECT * FROM songs WHERE id = $1',
+            text: 'SELECT id, title, year, performer, genre, duration, album_id FROM songs WHERE id = $1',
             values: [id],
         };
         
@@ -48,7 +50,7 @@ class SongsService {
 
     async editSongById(id, { title, year, performer, genre, duration, albumId }) {
         const query = {
-            text: 'UPDATE songs SET title = $1, year = $2, performer = $3, genre = $4, duration = $5, albumId = $6 WHERE id = $7 RETURNING id',
+            text: 'UPDATE songs SET title = $1, year = $2, performer = $3, genre = $4, duration = $5, album_id = $6 WHERE id = $7 RETURNING id',
             values: [title, year, performer, genre, duration, albumId, id],
         };
 
