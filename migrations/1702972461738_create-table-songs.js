@@ -30,9 +30,11 @@ exports.up = pgm => {
         },
         album_id: {
             type: 'TEXT',
-            notNull: true,
+            notNull: false,
         },
     })
 };
 
-exports.down = pgm => {};
+exports.down = pgm => {
+    pgm.dropTable('songs');
+};
