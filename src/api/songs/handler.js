@@ -1,4 +1,3 @@
-const ClientError = require('../../exceptions/ClientError');
 const autoBind = require('auto-bind');
 
 class SongsHandler {
@@ -25,14 +24,18 @@ class SongsHandler {
         return response;
     }
 
-    async getSongsHandler() {
-        const songs = await this._service.getSongs();
-        return {
+    async getSongsHandler(request, h) {
+        const { title, performer } = request.query;
+        const songs = await this._service.getSongs(title, performer);
+        console.log(songs);
+        const response = h.response({
             status: 'success',
             data: {
                 songs,
             },
-        };
+        });
+        response.code(200);
+        return response;
     }
 
     async getSongByIdHandler(request, h) {
