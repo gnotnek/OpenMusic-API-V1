@@ -41,7 +41,7 @@ class SongsService {
         const query = {
             text: `SELECT id, title, performer FROM songs ${condition}`,
         };
-        console.log(query);
+
         const result = await this._pool.query(query);
         return result.rows;
     }
