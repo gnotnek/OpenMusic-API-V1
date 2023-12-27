@@ -11,7 +11,7 @@ class SongsService {
         this._pool = new Pool();
     }
 
-    async addSong({ title, year, performer, genre, duration, albumId }) {
+    async addSong(title, year, performer, genre, duration, albumId) {
         const id = `song-${nanoid(16)}`;
 
         const query = {
